@@ -3,7 +3,7 @@ from shutil import copyfile
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.pyplot import figure
-from scipy.optimize import leastsq
+# from scipy.optimize import leastsq
 from PyPDF2 import PdfFileMerger
 
 # to match the width of the front page(width of plots in pdf)
