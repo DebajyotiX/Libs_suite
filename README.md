@@ -5,7 +5,7 @@ This is a python library which automatically generates PDF reports containing pl
 OPEN RunThis.py
 There, you can run it once to see how the code works. 
 It will produce some plots and ultimately save it in a pdf file named report.py
-# If the previous Try on your OWN DATA
+# If the trial on TEST DATA worked, try on your OWN DATA
 1. To work with your own file, add your libs data file in the same directory as RunThis.py
 2. Open RunThis.py and replace the given filename(with extension)
 
