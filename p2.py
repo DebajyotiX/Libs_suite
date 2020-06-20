@@ -57,6 +57,7 @@ class Libs_data:
         y=self.yData
         name =self.title
         fig, ax = plt.subplots(nrows=1, ncols=1, facecolor=(0.2, 0.2, 0.2))
+
         ax.set_facecolor((0.2, 0.2, 0.2))
         ax.plot(x,y, color='yellow', linewidth=0.5)
         ax.set_xlim([x[0], x[-1]])  # set the range here
@@ -75,12 +76,9 @@ class Libs_data:
         ax.set_title("LIBS SPECTRUM - "+name+"(RAW DATA)", color=(0.7, 0.7, 0.7))
         ax.tick_params(direction='inout', length=6, width=1.5, colors=(0.7, 0.7, 0.7),
                        grid_color=(0.7, 0.7, 0.7))
-        # plt.rcParams["figure.figsize"] = [6.4 * 2, 4.8 * 1.2]
         # plt.rc('figure', figsize=(11.69, 8.27))
         # plt.tight_layout()
-        plt.savefig('temp_raw.pdf', dpi=300, facecolor=(0.2, 0.2, 0.2), edgecolor=(0.2, 0.2, 0.2),
-                    orientation='landscape', papertype='A4', format=None,
-                    transparent=False, bbox_inches=None, pad_inches=0.1, metadata=None)
+        plt.savefig('temp_raw.pdf', dpi=300, facecolor=(0.2, 0.2, 0.2), edgecolor=(0.2, 0.2, 0.2))
         mergePDFtoMaster('temp_raw.pdf')
 
         if no_graph == None:
@@ -138,10 +136,10 @@ class Libs_data:
         mergePDFtoMaster('temp_2x1_subplot.pdf')
         if no_graph == None:
             plt.show() 
-
-# jaggery = Libs_data('jaggery_ss_50g_20us_70mj_1_MechelleSpect.asc',title="Jaggery")
-# jaggery.raw_plot()
-# jaggery.raw_2x1_subplot()
+plt.rcParams["figure.figsize"] = [8.27, 6]
+jaggery = Libs_data('jaggery_ss_50g_20us_70mj_1_MechelleSpect.asc',title="Jaggery")
+jaggery.raw_plot()
+jaggery.raw_2x1_subplot()
 
 # jaggery.raw_3x1_subplot()
 
