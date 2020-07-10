@@ -16,18 +16,21 @@ def mergePDFtoMaster(name_of_pdf,not_delete = None):
         if os.path.exists('./report.pdf'):
             pass
         else:
-            copyfile('Designs\design 4.0 (master).pdf', 'report.pdf')
+            copyfile('Designs\design 5.0 (master).pdf', 'report.pdf')
 
         pdfs = ['report.pdf']
         pdfs = pdfs + [name_of_pdf]
         merger = PdfFileMerger()
         for pdf in pdfs:
             merger.append(pdf)
+        # os.remove('report.pdf')
+        merger.write("report2.pdf")###write to a different name and then delete prev report and rename_the current one
+        merger.close()
         if not_delete == False or not_delete == None:
             os.remove(name_of_pdf)
-        os.remove('report.pdf')
-        merger.write("report.pdf")
-        merger.close()
+        os.remove("report.pdf")
+        os.rename("report2.pdf","report.pdf")
+
 
 class Libs_data:
     
@@ -72,28 +75,28 @@ class Libs_data:
         x=self.xData
         y=self.yData
         name =self.title
-        fig, ax = plt.subplots(nrows=1, ncols=1, facecolor=(0.2, 0.2, 0.2))
-        ax.set_facecolor((0.2, 0.2, 0.2))
-        ax.plot(x,y, color='yellow', linewidth=0.5)
+        fig, ax = plt.subplots(nrows=1, ncols=1, facecolor=(1, 1, 1))
+        ax.set_facecolor((1, 1, 1))
+        ax.plot(x,y, color=(0.3,0.3,0.3), linewidth=0.5)
         ax.set_xlim([x[0], x[-1]])
 
         # =========================COSMETICS of plotting ====================
-        ax.set_ylabel('Intensity(counts)', color=(0.7, 0.7, 0.7))
-        ax.set_xlabel('Wavelength(nm)', color=(0.7, 0.7, 0.7))
+        ax.set_ylabel('Intensity(counts)', color=(0.5, 0.5, 0.5))
+        ax.set_xlabel('Wavelength(nm)', color=(0.5, 0.5, 0.5))
         for xmaj in ax.xaxis.get_majorticklocs():
-            ax.axvline(x=xmaj, ls='-', color=(0.3, 0.3, 0.3), linewidth=0.5)
+            ax.axvline(x=xmaj, ls='-', color=(0.8, 0.8, 0.8), linewidth=0.5)
         for xmin in ax.xaxis.get_minorticklocs():
-            ax.axvline(x=xmin, ls='--', color=(0.3, 0.3, 0.3), linewidth=0.5)
+            ax.axvline(x=xmin, ls='--', color=(0.8, 0.8, 0.8), linewidth=0.5)
         for ymaj in ax.yaxis.get_majorticklocs():
-            ax.axhline(y=ymaj, ls='-', color=(0.3, 0.3, 0.3), linewidth=0.5)
+            ax.axhline(y=ymaj, ls='-', color=(0.8, 0.8, 0.8), linewidth=0.5)
         for ymin in ax.yaxis.get_minorticklocs():
-            ax.axhline(y=ymin, ls='--')
-        ax.set_title("LIBS SPECTRUM - "+name+"(RAW DATA)", color=(0.7, 0.7, 0.7))
-        ax.tick_params(direction='inout', length=6, width=1.5, colors=(0.7, 0.7, 0.7),
-                       grid_color=(0.7, 0.7, 0.7))
+            ax.axhline(y=ymin, ls='--', color=(0.8, 0.8, 0.8), linewidth=0.5)
+        ax.set_title("LIBS SPECTRUM - "+name+"(RAW DATA)", color=(0.5, 0.5, 0.5))
+        ax.tick_params(direction='inout', length=6, width=1.5, colors=(0.5, 0.5, 0.5),
+                       grid_color=(0.5, 0.5, 0.5))
 
         # =========================SAVING PLOT ====================
-        plt.savefig('temp_raw.pdf', dpi=300, facecolor=(0.2, 0.2, 0.2), edgecolor=(0.2, 0.2, 0.2))
+        plt.savefig('temp_raw.pdf', dpi=300, facecolor=(1, 1, 1), edgecolor=(1, 1, 1))
         mergePDFtoMaster('temp_raw.pdf')
         if show_plot == None or show_plot==True:
             plt.show()  
@@ -104,47 +107,47 @@ class Libs_data:
         name =self.title
         size=self.no_of_points
 
-        fig, ax = plt.subplots(nrows=2, ncols=1, facecolor=(0.2, 0.2, 0.2),sharey=True)
+        fig, ax = plt.subplots(nrows=2, ncols=1, facecolor=(1, 1, 1),sharey=True)
         first_divide =int(size/2)
-        ax[0].plot(x[0:first_divide],y[0:first_divide], color='yellow', linewidth=0.5)
+        ax[0].plot(x[0:first_divide],y[0:first_divide], color=(0.3,0.3,0.3), linewidth=0.5)
         ax[0].set_xlim([x[0], x[first_divide]])  # set the range here
         ax[0].set_ylim([-4000,40000])  # set the range here
-        ax[0].set_facecolor((0.2, 0.2, 0.2))
+        ax[0].set_facecolor((1, 1 , 1))
 
         # =========================COSMETICS of plotting ====================
-        ax[0].set_ylabel('Intensity(counts)', color=(0.7, 0.7, 0.7))
+        ax[0].set_ylabel('Intensity(counts)', color=(0.5, 0.5, 0.5))
         for xmaj in ax[0].xaxis.get_majorticklocs():
-            ax[0].axvline(x=xmaj, ls='-', color=(0.3, 0.3, 0.3), linewidth=0.5)
+            ax[0].axvline(x=xmaj, ls='-', color=(0.8, 0.8, 0.8), linewidth=0.5)
         for xmin in ax[0].xaxis.get_minorticklocs():
-            ax[0].axvline(x=xmin, ls='--', color=(0.3, 0.3, 0.3), linewidth=0.5)
+            ax[0].axvline(x=xmin, ls='--', color=(0.8, 0.8, 0.8), linewidth=0.5)
         for ymaj in ax[0].yaxis.get_majorticklocs():
-            ax[0].axhline(y=ymaj, ls='-', color=(0.3, 0.3, 0.3), linewidth=0.5)
+            ax[0].axhline(y=ymaj, ls='-', color=(0.8, 0.8, 0.8), linewidth=0.5)
         for ymin in ax[0].yaxis.get_minorticklocs():
-            ax[0].axhline(y=ymin, ls='--')
-        ax[0].tick_params(direction='inout', length=6, width=1.5, colors=(0.7, 0.7, 0.7),
-                       grid_color=(0.7, 0.7, 0.7))
+            ax[0].axhline(y=ymin, ls='--', color=(0.8, 0.8, 0.8), linewidth=0.5)
+        ax[0].tick_params(direction='inout', length=6, width=1.5, colors=(0.5, 0.5, 0.5),
+                       grid_color=(0.5, 0.5, 0.5))
 
 
-        ax[1].plot(x[first_divide:-1], y[first_divide:-1], color='yellow', linewidth=0.5)
+        ax[1].plot(x[first_divide:-1], y[first_divide:-1], color=(0.3,0.3,0.3), linewidth=0.5)
         ax[1].set_xlim([x[first_divide], x[-1]])  # set the range here
-        ax[1].set_facecolor((0.2, 0.2, 0.2))
+        ax[1].set_facecolor((1, 1 , 1))
         ax[1].set_ylim([-4000,40000])  # set the range here
 
         # =========================COSMETICS of plotting ====================
-        ax[1].set_ylabel('Intensity(counts)', color=(0.7, 0.7, 0.7))
-        ax[1].set_xlabel('Wavelength(nm)', color=(0.7, 0.7, 0.7))
+        ax[1].set_ylabel('Intensity(counts)', color=(0.5, 0.5, 0.5))
+        ax[1].set_xlabel('Wavelength(nm)', color=(0.5, 0.5, 0.5))
         for xmaj in ax[1].xaxis.get_majorticklocs():
-            ax[1].axvline(x=xmaj, ls='-', color=(0.3, 0.3, 0.3), linewidth=0.5)
+            ax[1].axvline(x=xmaj, ls='-', color=(0.8, 0.8, 0.8), linewidth=0.5)
         for xmin in ax[1].xaxis.get_minorticklocs():
-            ax[1].axvline(x=xmin, ls='--', color=(0.3, 0.3, 0.3), linewidth=0.5)
+            ax[1].axvline(x=xmin, ls='--', color=(0.8, 0.8, 0.8), linewidth=0.5)
         for ymaj in ax[1].yaxis.get_majorticklocs():
-            ax[1].axhline(y=ymaj, ls='-', color=(0.3, 0.3, 0.3), linewidth=0.5)
+            ax[1].axhline(y=ymaj, ls='-', color=(0.8, 0.8, 0.8), linewidth=0.5)
         for ymin in ax[1].yaxis.get_minorticklocs():
-            ax[1].axhline(y=ymin, ls='--')
-        ax[0].set_title("LIBS SPECTRUM - "+name+"(RAW DATA 2x1)", color=(0.7, 0.7, 0.7))
-        ax[1].tick_params(direction='inout', length=6, width=1.5, colors=(0.7, 0.7, 0.7),
-                             grid_color=(0.7, 0.7, 0.7))
-        plt.savefig('temp_2x1_subplot.pdf', dpi=300, facecolor=(0.2, 0.2, 0.2), edgecolor=(0.2, 0.2, 0.2),
+            ax[1].axhline(y=ymin, ls='--', color=(0.8, 0.8, 0.8), linewidth=0.5)
+        ax[0].set_title("LIBS SPECTRUM - "+name+"(RAW DATA 2x1)", color=(0.5, 0.5, 0.5))
+        ax[1].tick_params(direction='inout', length=6, width=1.5, colors=(0.5, 0.5, 0.5),
+                             grid_color=(0.5, 0.5, 0.5))
+        plt.savefig('temp_2x1_subplot.pdf', dpi=300, facecolor=(1, 1, 1), edgecolor=(1, 1, 1),
                     orientation='landscape', papertype='A4', format=None,
                     transparent=False, bbox_inches=None, pad_inches=0.1, metadata=None)
         mergePDFtoMaster('temp_2x1_subplot.pdf')
