@@ -10,5 +10,5 @@ material.raw_2x1_subplot(show_plot=True)
 
 
 # adding a last end page(one with the bunser burner)
-mergePDFtoMaster('Designs/design 4.0 (end).pdf', not_delete = True)
+mergePDFtoMaster('Designs\design 4.0 (end).pdf', not_delete = True)
 
