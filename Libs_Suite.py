@@ -16,7 +16,7 @@ def mergePDFtoMaster(name_of_pdf,not_delete = None):
         if os.path.exists('./report.pdf'):
             pass
         else:
-            copyfile('Designs/design 4.0 (master).pdf', 'report.pdf')
+            copyfile('Designs\design 4.0 (master).pdf', 'report.pdf')
 
         pdfs = ['report.pdf']
         pdfs = pdfs + [name_of_pdf]
