@@ -74,177 +74,160 @@ class Libs_data:
         x=self.xData
         y=self.yData
         name =self.title
-        fig, ax = plt.subplots(nrows=1, ncols=1, facecolor=(1, 1, 1))
-        ax.set_facecolor((1, 1, 1))
-        ax.plot(x,y, color=(0.3,0.3,0.3), linewidth=0.5)
-        ax.set_xlim([x[0], x[-1]])
+        with plt.rc_context({'axes.edgecolor':((0.8, 0.8, 0.8))}):
+            fig, ax = plt.subplots(nrows=1, ncols=1, facecolor=(1, 1, 1))
+            ax.set_facecolor((1, 1, 1))
+            ax.plot(x,y, color=(0.3,0.3,0.3), linewidth=0.5)
 
-        # =========================COSMETICS of plotting ====================
-        ax.set_ylabel('counts', color=(0.5, 0.5, 0.5))
-        ax.set_xlabel('Wavelength(nm)', color=(0.5, 0.5, 0.5))
-        for xmaj in ax.xaxis.get_majorticklocs():
-            ax.axvline(x=xmaj, ls='-', color=(0.9, 0.9, 0.9), linewidth=0.5)
-        for xmin in ax.xaxis.get_minorticklocs():
-            ax.axvline(x=xmin, ls='--', color=(0.9, 0.9, 0.9), linewidth=0.5)
-        for ymaj in ax.yaxis.get_majorticklocs():
-            ax.axhline(y=ymaj, ls='-', color=(0.9, 0.9, 0.9), linewidth=0.5)
-        for ymin in ax.yaxis.get_minorticklocs():
-            ax.axhline(y=ymin, ls='--', color=(0.9, 0.9, 0.9), linewidth=0.5)
-        ax.set_title("RAW DATA", color=(0.5, 0.5, 0.5))
-        ax.tick_params(direction='inout', length=6, width=1.5, colors=(0.5, 0.5, 0.5),
-            grid_color=(0.5, 0.5, 0.5))
+            # =========================COSMETICS of plotting ====================
+            ax.set_ylabel('counts', color=(0.5, 0.5, 0.5))
+            ax.set_xlabel('Wavelength(nm)', color=(0.5, 0.5, 0.5))
+            # for xmaj in ax.xaxis.get_majorticklocs():
+            #     ax.axvline(x=xmaj, ls='-', color=(0.9, 0.9, 0.9), linewidth=0.5)
+            # for xmin in ax.xaxis.get_minorticklocs():
+            #     ax.axvline(x=xmin, ls='--', color=(0.9, 0.9, 0.9), linewidth=0.5)
+            # for ymaj in ax.yaxis.get_majorticklocs():
+            #     ax.axhline(y=ymaj, ls='-', color=(0.9, 0.9, 0.9), linewidth=0.5)
+            # for ymin in ax.yaxis.get_minorticklocs():
+            #     ax.axhline(y=ymin, ls='--', color=(0.9, 0.9, 0.9), linewidth=0.5)
+            ax.set_title("RAW DATA", color=(0.5, 0.5, 0.5))
+            ax.tick_params(direction='inout', length=6, width=1.5, colors=(0.5, 0.5, 0.5),
+                grid_color=(0.5, 0.5, 0.5))
+            ax.set_xlim([x[0], x[-1]])
+            ax.set_ylim([-4000,40000])  # set the range here
+            ax.grid(color=(0.8, 0.8, 0.8), ls = '--', lw = 0.25)
 
-        # =========================SAVING PLOT ====================
-        plt.savefig('temp_raw.pdf', dpi=300, facecolor=(1, 1, 1), edgecolor=(1, 1, 1))
-        mergePDFtoMaster('temp_raw.pdf')
-        if show_plot == None or show_plot==True:
-            plt.show()  
+            # =========================SAVING PLOT ====================
+            plt.savefig('temp_raw.pdf', dpi=300, facecolor=(1, 1, 1), edgecolor=(1, 1, 1))
+            mergePDFtoMaster('temp_raw.pdf')
+            if show_plot == None or show_plot==True:
+                plt.show()  
 
     def raw_2x1_subplot(self,show_plot=None):
         x=self.xData
         y=self.yData
         name =self.title
         size=self.no_of_points
-        fig, ax = plt.subplots(nrows=2, ncols=1, facecolor=(1, 1, 1))
-        first_divide =int(size/2)
-        ax[0].plot(x[0:first_divide],y[0:first_divide], color=(0.3,0.3,0.3), linewidth=0.5)
-        ax[0].set_xlim([x[0], x[first_divide]])  # set the range here
-        ax[0].set_ylim([-4000,40000])  # set the range here
-        ax[0].set_facecolor((1, 1 , 1))
+        with plt.rc_context({'axes.edgecolor':((0.8, 0.8, 0.8))}):
+            fig, ax = plt.subplots(nrows=2, ncols=1, facecolor=(1, 1, 1))
+            first_divide =int(size/2)
+            ax[0].plot(x[0:first_divide],y[0:first_divide], color=(0.3,0.3,0.3), linewidth=0.5)
 
-        # =========================COSMETICS of plotting ====================
-        ax[0].set_ylabel('counts', color=(0.5, 0.5, 0.5))
-        for xmaj in ax[0].xaxis.get_majorticklocs():
-            ax[0].axvline(x=xmaj, ls='-', color=(0.9, 0.9, 0.9), linewidth=0.5)
-        for xmin in ax[0].xaxis.get_minorticklocs():
-            ax[0].axvline(x=xmin, ls='--', color=(0.9, 0.9, 0.9), linewidth=0.5)
-        for ymaj in ax[0].yaxis.get_majorticklocs():
-            ax[0].axhline(y=ymaj, ls='-', color=(0.9, 0.9, 0.9), linewidth=0.5)
-        for ymin in ax[0].yaxis.get_minorticklocs():
-            ax[0].axhline(y=ymin, ls='--', color=(0.9, 0.9, 0.9), linewidth=0.5)
-        ax[0].tick_params(direction='inout', length=6, width=1.5, colors=(0.5, 0.5, 0.5),
-            grid_color=(0.5, 0.5, 0.5))
+            ax[0].set_xlim([x[0], x[first_divide]])  # set the range here
+            ax[0].set_ylim([-4000,40000])  # set the range here
+            ax[0].set_facecolor((1, 1 , 1))
+
+            # =========================COSMETICS of plotting ====================
+            ax[0].set_ylabel('counts', color=(0.5, 0.5, 0.5))
+            ax[0].grid((0.8, 0.8, 0.8), ls = '--', lw = 0.25)
+
+            # for xmaj in ax[0].xaxis.get_majorticklocs():
+            #     ax[0].axvline(x=xmaj, ls='-', color=(0.9, 0.9, 0.9), linewidth=0.5)
+            # for xmin in ax[0].xaxis.get_minorticklocs():
+            #     ax[0].axvline(x=xmin, ls='--', color=(0.9, 0.9, 0.9), linewidth=0.5)
+            # for ymaj in ax[0].yaxis.get_majorticklocs():
+            #     ax[0].axhline(y=ymaj, ls='-', color=(0.9, 0.9, 0.9), linewidth=0.5)
+            # for ymin in ax[0].yaxis.get_minorticklocs():
+            #     ax[0].axhline(y=ymin, ls='--', color=(0.9, 0.9, 0.9), linewidth=0.5)
+            ax[0].tick_params(direction='inout', length=6, width=1.5, colors=(0.5, 0.5, 0.5),
+                grid_color=(0.5, 0.5, 0.5))
 
 
-        ax[1].plot(x[first_divide:-1], y[first_divide:-1], color=(0.3,0.3,0.3), linewidth=0.5)
-        ax[1].set_xlim([x[first_divide], x[-1]])  # set the range here
-        ax[1].set_facecolor((1, 1 , 1))
-        ax[1].set_ylim([-4000,40000])  # set the range here
+            ax[1].plot(x[first_divide:-1], y[first_divide:-1], color=(0.3,0.3,0.3), linewidth=0.5)
+            ax[1].set_xlim([x[first_divide], x[-1]])  # set the range here
+            ax[1].set_facecolor((1, 1 , 1))
+            ax[1].set_ylim([-4000,40000])  # set the range here
 
-        # =========================COSMETICS of plotting ====================
-        ax[1].set_ylabel('counts', color=(0.5, 0.5, 0.5))
-        ax[1].set_xlabel('Wavelength(nm)', color=(0.5, 0.5, 0.5))
-        for xmaj in ax[1].xaxis.get_majorticklocs():
-            ax[1].axvline(x=xmaj, ls='-', color=(0.9, 0.9, 0.9), linewidth=0.5)
-        for xmin in ax[1].xaxis.get_minorticklocs():
-            ax[1].axvline(x=xmin, ls='--', color=(0.9, 0.9, 0.9), linewidth=0.5)
-        for ymaj in ax[1].yaxis.get_majorticklocs():
-            ax[1].axhline(y=ymaj, ls='-', color=(0.9, 0.9, 0.9), linewidth=0.5)
-        for ymin in ax[1].yaxis.get_minorticklocs():
-            ax[1].axhline(y=ymin, ls='--', color=(0.9, 0.9, 0.9), linewidth=0.5)
-        ax[0].set_title("RAW DATA 2x1", color=(0.5, 0.5, 0.5))
-        ax[1].tick_params(direction='inout', length=6, width=1.5, colors=(0.5, 0.5, 0.5),
-            grid_color=(0.5, 0.5, 0.5))
-        plt.savefig('temp_2x1_subplot.pdf', dpi=300, facecolor=(1, 1, 1), edgecolor=(1, 1, 1),
-            orientation='landscape', papertype='A4', format=None,
-            transparent=False, bbox_inches=None, pad_inches=0.1, metadata=None)
-        mergePDFtoMaster('temp_2x1_subplot.pdf')
-        if show_plot == None or show_plot==True:
-            plt.show()
+            # =========================COSMETICS of plotting ====================
+            ax[1].set_ylabel('counts', color=(0.5, 0.5, 0.5))
+            ax[1].set_xlabel('Wavelength(nm)', color=(0.5, 0.5, 0.5))
+            ax[1].grid(color=(0.8, 0.8, 0.8), ls = '--', lw = 0.25)
+            ax[0].set_title("RAW DATA 2x1", color=(0.5, 0.5, 0.5))
+            ax[1].tick_params(direction='inout', length=6, width=1.5, colors=(0.5, 0.5, 0.5),
+                grid_color=(0.5, 0.5, 0.5))
+            plt.savefig('temp_2x1_subplot.pdf', dpi=300, facecolor=(1, 1, 1), edgecolor=(1, 1, 1),
+                orientation='landscape', papertype='A4', format=None,
+                transparent=False, bbox_inches=None, pad_inches=0.1, metadata=None)
+            mergePDFtoMaster('temp_2x1_subplot.pdf')
+            if show_plot == None or show_plot==True:
+                plt.show()
 
     def raw_3x1_subplot(self,show_plot=None):
         x=self.xData
         y=self.yData
         name =self.title
         size=self.no_of_points
-        fig, ax = plt.subplots(nrows=3, ncols=1, facecolor=(1, 1, 1),sharey=True)
-        first_divide =int(size/3)
-        second_divide = int(2*size/3)
-        ax[0].plot(x[0:first_divide],y[0:first_divide], color=(0.3,0.3,0.3), linewidth=0.5)
-        ax[0].set_xlim([x[0], x[first_divide]])  # set the range here
-        ax[0].set_ylim([-4000,40000])  # set the range here
-        ax[0].set_facecolor((1, 1 , 1))
+        with plt.rc_context({'axes.edgecolor':((0.8, 0.8, 0.8))}):
+            fig, ax = plt.subplots(nrows=3, ncols=1, facecolor=(1, 1, 1),sharey=True)
+            first_divide =int(size/3)
+            second_divide = int(2*size/3)
+            ax[0].plot(x[0:first_divide],y[0:first_divide], color=(0.3,0.3,0.3), linewidth=0.5)
+            ax[0].set_xlim([x[0], x[first_divide]])  # set the range here
+            ax[0].set_ylim([-4000,40000])  # set the range here
+            ax[0].set_facecolor((1, 1 , 1))
 
-        # =========================COSMETICS of plotting ====================
-        ax[0].set_ylabel('counts', color=(0.5, 0.5, 0.5))
-        for xmaj in ax[0].xaxis.get_majorticklocs():
-            ax[0].axvline(x=xmaj, ls='-', color=(0.9, 0.9, 0.9), linewidth=0.5)
-        for xmin in ax[0].xaxis.get_minorticklocs():
-            ax[0].axvline(x=xmin, ls='--', color=(0.9, 0.9, 0.9), linewidth=0.5)
-        for ymaj in ax[0].yaxis.get_majorticklocs():
-            ax[0].axhline(y=ymaj, ls='-', color=(0.9, 0.9, 0.9), linewidth=0.5)
-        for ymin in ax[0].yaxis.get_minorticklocs():
-            ax[0].axhline(y=ymin, ls='--', color=(0.9, 0.9, 0.9), linewidth=0.5)
-        ax[0].tick_params(direction='inout', length=6, width=1.5, colors=(0.5, 0.5, 0.5),
-            grid_color=(0.5, 0.5, 0.5))
+            # =========================COSMETICS of plotting ====================
+            ax[0].set_ylabel('counts', color=(0.5, 0.5, 0.5))
+            # for xmaj in ax[0].xaxis.get_majorticklocs():
+            #     ax[0].axvline(x=xmaj, ls='-', color=(0.9, 0.9, 0.9), linewidth=0.5)
+            # for xmin in ax[0].xaxis.get_minorticklocs():
+            #     ax[0].axvline(x=xmin, ls='--', color=(0.9, 0.9, 0.9), linewidth=0.5)
+            # for ymaj in ax[0].yaxis.get_majorticklocs():
+            #     ax[0].axhline(y=ymaj, ls='-', color=(0.9, 0.9, 0.9), linewidth=0.5)
+            # for ymin in ax[0].yaxis.get_minorticklocs():
+            #     ax[0].axhline(y=ymin, ls='--', color=(0.9, 0.9, 0.9), linewidth=0.5)
+            ax[0].grid(color=(0.8, 0.8, 0.8), ls = '--', lw = 0.25)
 
-
-        ax[1].plot(x[first_divide:second_divide], y[first_divide:second_divide], color=(0.3,0.3,0.3), linewidth=0.5)
-        ax[1].set_xlim([x[first_divide], x[second_divide]])  # set the range here
-        ax[1].set_facecolor((1, 1 , 1))
-        ax[1].set_ylim([-4000,40000])  # set the range here
-
-        # =========================COSMETICS of plotting ====================
-        ax[1].set_ylabel('counts', color=(0.5, 0.5, 0.5))
-        for xmaj in ax[1].xaxis.get_majorticklocs():
-            ax[1].axvline(x=xmaj, ls='-', color=(0.9, 0.9, 0.9), linewidth=0.5)
-        for xmin in ax[1].xaxis.get_minorticklocs():
-            ax[1].axvline(x=xmin, ls='--', color=(0.9, 0.9, 0.9), linewidth=0.5)
-        for ymaj in ax[1].yaxis.get_majorticklocs():
-            ax[1].axhline(y=ymaj, ls='-', color=(0.9, 0.9, 0.9), linewidth=0.5)
-        for ymin in ax[1].yaxis.get_minorticklocs():
-            ax[1].axhline(y=ymin, ls='--', color=(0.9, 0.9, 0.9), linewidth=0.5)
-        ax[1].tick_params(direction='inout', length=6, width=1.5, colors=(0.5, 0.5, 0.5),
-            grid_color=(0.5, 0.5, 0.5))
-       
-
-        ax[2].plot(x[second_divide:-1], y[second_divide:-1], color=(0.3,0.3,0.3), linewidth=0.5)
-        ax[2].set_xlim([x[second_divide], x[-1]])  # set the range here
-        ax[2].set_facecolor((1, 1 , 1))
-        ax[2].set_ylim([-4000,40000])  # set the range here
-
-        # =========================COSMETICS of plotting ====================
-        ax[2].set_ylabel('counts', color=(0.5, 0.5, 0.5))
-        ax[2].set_xlabel('Wavelength(nm)', color=(0.5, 0.5, 0.5))
-        for xmaj in ax[2].xaxis.get_majorticklocs():
-            ax[2].axvline(x=xmaj, ls='-', color=(0.9, 0.9, 0.9), linewidth=0.5)
-        for xmin in ax[2].xaxis.get_minorticklocs():
-            ax[2].axvline(x=xmin, ls='--', color=(0.9, 0.9, 0.9), linewidth=0.5)
-        for ymaj in ax[2].yaxis.get_majorticklocs():
-            ax[2].axhline(y=ymaj, ls='-', color=(0.9, 0.9, 0.9), linewidth=0.5)
-        for ymin in ax[2].yaxis.get_minorticklocs():
-            ax[2].axhline(y=ymin, ls='--', color=(0.9, 0.9, 0.9), linewidth=0.5)
-        ax[2].tick_params(direction='inout', length=6, width=1.5, colors=(0.5, 0.5, 0.5),
-            grid_color=(0.5, 0.5, 0.5))
+            ax[0].tick_params(direction='inout', length=6, width=1.5, colors=(0.5, 0.5, 0.5),
+                grid_color=(0.5, 0.5, 0.5))
 
 
+            ax[1].plot(x[first_divide:second_divide], y[first_divide:second_divide], color=(0.3,0.3,0.3), linewidth=0.5)
+            ax[1].set_xlim([x[first_divide], x[second_divide]])  # set the range here
+            ax[1].set_facecolor((1, 1 , 1))
+            ax[1].set_ylim([-4000,40000])  # set the range here
 
+            # =========================COSMETICS of plotting ====================
+            ax[1].set_ylabel('counts', color=(0.5, 0.5, 0.5))
+            # for xmaj in ax[1].xaxis.get_majorticklocs():
+            #     ax[1].axvline(x=xmaj, ls='-', color=(0.9, 0.9, 0.9), linewidth=0.5)
+            # for xmin in ax[1].xaxis.get_minorticklocs():
+            #     ax[1].axvline(x=xmin, ls='--', color=(0.9, 0.9, 0.9), linewidth=0.5)
+            # for ymaj in ax[1].yaxis.get_majorticklocs():
+            #     ax[1].axhline(y=ymaj, ls='-', color=(0.9, 0.9, 0.9), linewidth=0.5)
+            # for ymin in ax[1].yaxis.get_minorticklocs():
+            #     ax[1].axhline(y=ymin, ls='--', color=(0.9, 0.9, 0.9), linewidth=0.5)
+            ax[1].grid(color=(0.8, 0.8, 0.8), ls = '--', lw = 0.25)
+            ax[1].tick_params(direction='inout', length=6, width=1.5, colors=(0.5, 0.5, 0.5),
+                grid_color=(0.5, 0.5, 0.5))
+           
 
+            ax[2].plot(x[second_divide:-1], y[second_divide:-1], color=(0.3,0.3,0.3), linewidth=0.5)
+            ax[2].set_xlim([x[second_divide], x[-1]])  # set the range here
+            ax[2].set_facecolor((1, 1 , 1))
+            ax[2].set_ylim([-4000,40000])  # set the range here
 
-
-
-
-        # -------------FIX IT---------------------------------------
-        # for ax, color in zip([ax[0], ax[1], ax[2]], ['green', 'green', 'red']):
-        #     plt.setp(ax.spines.values(), color=color)
-        # -------------FIX IT---------------------------------------
-
-
-
-
-
-
-
-
-
-
-        ax[0].set_title("RAW DATA 3x1", color=(0.5, 0.5, 0.5))
-        plt.savefig('temp_3x1_subplot.pdf', dpi=300, facecolor=(1, 1, 1), edgecolor=(1, 1, 1),
-            orientation='landscape', papertype='A4', format=None,
-            transparent=False, bbox_inches=None, pad_inches=0.1, metadata=None)
-        mergePDFtoMaster('temp_3x1_subplot.pdf')
-        if show_plot == None or show_plot==True:
-            plt.show() 
+            # =========================COSMETICS of plotting ====================
+            ax[2].set_ylabel('counts', color=(0.5, 0.5, 0.5))
+            ax[2].set_xlabel('Wavelength(nm)', color=(0.5, 0.5, 0.5))
+            # for xmaj in ax[2].xaxis.get_majorticklocs():
+            #     ax[2].axvline(x=xmaj, ls='-', color=(0.9, 0.9, 0.9), linewidth=0.5)
+            # for xmin in ax[2].xaxis.get_minorticklocs():
+            #     ax[2].axvline(x=xmin, ls='--', color=(0.9, 0.9, 0.9), linewidth=0.5)
+            # for ymaj in ax[2].yaxis.get_majorticklocs():
+            #     ax[2].axhline(y=ymaj, ls='-', color=(0.9, 0.9, 0.9), linewidth=0.5)
+            # for ymin in ax[2].yaxis.get_minorticklocs():
+            #     ax[2].axhline(y=ymin, ls='--', color=(0.9, 0.9, 0.9), linewidth=0.5)
+            ax[2].grid(color=(0.8, 0.8, 0.8), ls = '--', lw = 0.25)
+            ax[2].tick_params(direction='inout', length=6, width=1.5, colors=(0.5, 0.5, 0.5),
+                grid_color=(0.5, 0.5, 0.5))
+            ax[0].set_title("RAW DATA 3x1", color=(0.5, 0.5, 0.5))
+            plt.savefig('temp_3x1_subplot.pdf', dpi=300, facecolor=(1, 1, 1), edgecolor=(1, 1, 1),
+                orientation='landscape', papertype='A4', format=None,
+                transparent=False, bbox_inches=None, pad_inches=0.1, metadata=None)
+            mergePDFtoMaster('temp_3x1_subplot.pdf')
+            if show_plot == None or show_plot==True:
+                plt.show() 
 
 
 #====================== USER TWEAKABLE =========================
