@@ -82,7 +82,7 @@ class Libs_data:
 
             # =========================COSMETICS of plotting ====================
             ax.set_facecolor((1, 1, 1))
-            ax.set_ylabel('counts', color=(0.5, 0.5, 0.5))
+            ax.set_ylabel('Counts', color=(0.5, 0.5, 0.5))
             ax.set_xlabel('Wavelength(nm)', color=(0.5, 0.5, 0.5))
             ax.set_title("RAW DATA", color=(0.5, 0.5, 0.5))
             ax.tick_params(direction='inout', length=6, width=1.5, colors=(0.5, 0.5, 0.5))
@@ -112,8 +112,8 @@ class Libs_data:
             ax[0].set_xlim([x[0], x[first_divide]])  # set the range here
             ax[0].set_ylim([-4000,40000])  # set the range here
             ax[0].set_facecolor((1, 1 , 1))
-            ax[0].set_ylabel('counts', color=(0.5, 0.5, 0.5))
-            ax[0].grid((0.8, 0.8, 0.8), ls = '--', lw = 0.25)
+            ax[0].set_ylabel('Counts', color=(0.5, 0.5, 0.5))
+            ax[0].grid(color=(0.8, 0.8, 0.8), ls = '--', lw = 0.25)
             ax[0].tick_params(direction='inout', length=6, width=1.5, colors=(0.5, 0.5, 0.5))
 
             # =========================PLOTTING====================
@@ -123,7 +123,7 @@ class Libs_data:
             ax[1].set_xlim([x[first_divide], x[-1]])  # set the range here
             ax[1].set_facecolor((1, 1 , 1))
             ax[1].set_ylim([-4000,40000])  # set the range here            
-            ax[1].set_ylabel('counts', color=(0.5, 0.5, 0.5))
+            ax[1].set_ylabel('Counts', color=(0.5, 0.5, 0.5))
             ax[1].set_xlabel('Wavelength(nm)', color=(0.5, 0.5, 0.5))
             ax[1].grid(color=(0.8, 0.8, 0.8), ls = '--', lw = 0.25)
             ax[0].set_title("RAW DATA 2x1", color=(0.5, 0.5, 0.5))
@@ -153,7 +153,7 @@ class Libs_data:
             ax[0].set_xlim([x[0], x[first_divide]])  # set the range here
             ax[0].set_ylim([-4000,40000])  # set the range here
             ax[0].set_facecolor((1, 1 , 1))
-            ax[0].set_ylabel('counts', color=(0.5, 0.5, 0.5))
+            ax[0].set_ylabel('Counts', color=(0.5, 0.5, 0.5))
             ax[0].grid(color=(0.8, 0.8, 0.8), ls = '--', lw = 0.25)
             ax[0].tick_params(direction='inout', length=6, width=1.5, colors=(0.5, 0.5, 0.5))
 
@@ -165,7 +165,7 @@ class Libs_data:
             ax[1].set_xlim([x[first_divide], x[second_divide]])  # set the range here
             ax[1].set_facecolor((1, 1 , 1))
             ax[1].set_ylim([-4000,40000])  # set the range here
-            ax[1].set_ylabel('counts', color=(0.5, 0.5, 0.5))
+            ax[1].set_ylabel('Counts', color=(0.5, 0.5, 0.5))
             ax[1].grid(color=(0.8, 0.8, 0.8), ls = '--', lw = 0.25)
             ax[1].tick_params(direction='inout', length=6, width=1.5, colors=(0.5, 0.5, 0.5))
            
@@ -176,7 +176,7 @@ class Libs_data:
             ax[2].set_xlim([x[second_divide], x[-1]])  # set the range here
             ax[2].set_facecolor((1, 1 , 1))
             ax[2].set_ylim([-4000,40000])  # set the range here
-            ax[2].set_ylabel('counts', color=(0.5, 0.5, 0.5))
+            ax[2].set_ylabel('Counts', color=(0.5, 0.5, 0.5))
             ax[2].set_xlabel('Wavelength(nm)', color=(0.5, 0.5, 0.5))
             ax[2].grid(color=(0.8, 0.8, 0.8), ls = '--', lw = 0.25)
             ax[2].tick_params(direction='inout', length=6, width=1.5, colors=(0.5, 0.5, 0.5))
@@ -189,12 +189,82 @@ class Libs_data:
             if show_plot == None or show_plot==True:
                 plt.show() 
 
+    def raw_CHNO_peaks(self,show_plot=None):
+        x=self.xData
+        y=self.yData
+        name =self.title
+        size=self.no_of_points
+        with plt.rc_context({'axes.edgecolor':((0.8, 0.8, 0.8))}):
+            fig, ax = plt.subplots(nrows=2, ncols=2, facecolor=(1, 1, 1))
+            #setting the X-limits for the CHNO peaks(nm)
+            a1 = 245.0
+            a2 = 250.0
 
-#====================== USER TWEAKABLE =========================
-# jaggery = Libs_data('jaggery_ss_50g_20us_70mj_1_MechelleSpect.asc',title="Jaggery",size =22492)
-# jaggery.raw_plot(show_plot=True)
-# jaggery.raw_2x1_subplot(show_plot=True)
+            b1 = 630.0
+            b2 = 645.0
+
+            c1 = 740.0
+            c2 = 750.0
+            
+            d1 = 774.0
+            d2 = 784.0
+
+            index_a1=min(range(len(x)), key = lambda i: abs(x[i]-a1))
+            index_b1=min(range(len(x)), key = lambda i: abs(x[i]-b1))
+            index_c1=min(range(len(x)), key = lambda i: abs(x[i]-c1))
+            index_d1=min(range(len(x)), key = lambda i: abs(x[i]-d1))
+            index_a2=min(range(len(x)), key = lambda i: abs(x[i]-a2))
+            index_b2=min(range(len(x)), key = lambda i: abs(x[i]-b2))
+            index_c2=min(range(len(x)), key = lambda i: abs(x[i]-c2))
+            index_d2=min(range(len(x)), key = lambda i: abs(x[i]-d2))
+            x[print()
+]            # =========================PLOTTING====================
+            ax[0,0].plot(x[index_a1:index_a2],y[index_a1:index_a2], color=(0.0,0.0,0.0), linewidth=0.7)
+
+            # =========================COSMETICS of plotting ====================
+            ax[0,0].set_xlim([x[index_a1], x[index_a2]])  # set the range here
+            ax[0,0].set_facecolor((1, 1 , 1))
+            ax[0,0].set_ylabel('Counts', color=(0.5, 0.5, 0.5))
+            ax[0,0].grid(color=(0.8, 0.8, 0.8), ls = '--', lw = 0.25)
+            ax[0,0].tick_params(direction='inout', length=6, width=1.5, colors=(0.5, 0.5, 0.5))
 
 
+            # =========================PLOTTING====================
+            ax[0,1].plot(x[index_b1:index_b2],y[index_b1:index_b2], color=(0.0,0.0,0.0), linewidth=0.7)
+
+            # =========================COSMETICS of plotting ====================
+            ax[0,1].set_xlim([x[index_b1], x[index_b2]])  # set the range here
+            ax[0,1].set_facecolor((1, 1 , 1))
+            ax[0,1].grid(color=(0.8, 0.8, 0.8), ls = '--', lw = 0.25)
+            ax[0,1].tick_params(direction='inout', length=6, width=1.5, colors=(0.5, 0.5, 0.5))
+           
+            # =========================PLOTTING====================
+            ax[1,0].plot(x[index_c1:index_c2],y[index_c1:index_c2], color=(0.0,0.0,0.0), linewidth=0.7)
+
+            # =========================COSMETICS of plotting ====================
+            ax[1,0].set_xlim([x[index_c1], x[index_c2]])  # set the range here
+            ax[1,0].set_facecolor((1, 1 , 1))
+            ax[1,0].set_ylabel('Counts', color=(0.5, 0.5, 0.5))
+            ax[1,0].set_xlabel('Wavelength(nm)', color=(0.5, 0.5, 0.5))
+            ax[1,0].grid(color=(0.8, 0.8, 0.8), ls = '--', lw = 0.25)
+            ax[1,0].tick_params(direction='inout', length=6, width=1.5, colors=(0.5, 0.5, 0.5))
+
+            # =========================PLOTTING====================
+            ax[1, 1].plot(x[index_d1:index_d2],y[index_d1:index_d2], color=(0.0,0.0,0.0), linewidth=0.7)
+
+            # =========================COSMETICS of plotting ====================
+            ax[1, 1].set_xlim([x[index_d1], x[index_d2]])  # set the range here
+            ax[1, 1].set_facecolor((1, 1 , 1))
+            ax[1, 1].set_xlabel('Wavelength(nm)', color=(0.5, 0.5, 0.5))
+            ax[1, 1].grid(color=(0.8, 0.8, 0.8), ls = '--', lw = 0.25)
+            ax[1, 1].tick_params(direction='inout', length=6, width=1.5, colors=(0.5, 0.5, 0.5))
+            # ax[0, 0].set_title("CHNO Peaks", color=(0.5, 0.5, 0.5))
+
+            plt.savefig('temp_CHNO_peaks.pdf', dpi=300, facecolor=(1, 1, 1), edgecolor=(1, 1, 1),
+                orientation='landscape', papertype='A4', format=None,
+                transparent=False, bbox_inches=None, pad_inches=0.1, metadata=None)
+            mergePDFtoMaster('temp_CHNO_peaks.pdf')
+            if show_plot == None or show_plot==True:
+                plt.show() 
 
 
