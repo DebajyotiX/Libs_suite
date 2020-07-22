@@ -3,6 +3,7 @@ from shutil import copyfile
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.pyplot import figure
+from scipy.signal import find_peaks
 # from scipy.optimize import leastsq
 from PyPDF2 import PdfFileMerger
 
@@ -68,8 +69,6 @@ class Libs_data:
         self.no_of_points = last
 
     def raw_plot(self,show_plot=None):
-
-        # ==============================PLOTTING============================
         x=self.xData
         y=self.yData
         name =self.title
@@ -196,6 +195,7 @@ class Libs_data:
         size=self.no_of_points
         with plt.rc_context({'axes.edgecolor':((0.8, 0.8, 0.8))}):
             fig, ax = plt.subplots(nrows=2, ncols=2, facecolor=(1, 1, 1))
+            
             #setting the X-limits for the CHNO peaks(nm)
             a1 = 245.0
             a2 = 250.0
@@ -209,6 +209,7 @@ class Libs_data:
             d1 = 774.0
             d2 = 784.0
 
+            # findin index of the wavelength value nearest to a,b,c,d
             index_a1=min(range(len(x)), key = lambda i: abs(x[i]-a1))
             index_b1=min(range(len(x)), key = lambda i: abs(x[i]-b1))
             index_c1=min(range(len(x)), key = lambda i: abs(x[i]-c1))
@@ -217,8 +218,8 @@ class Libs_data:
             index_b2=min(range(len(x)), key = lambda i: abs(x[i]-b2))
             index_c2=min(range(len(x)), key = lambda i: abs(x[i]-c2))
             index_d2=min(range(len(x)), key = lambda i: abs(x[i]-d2))
-            x[print()
-]            # =========================PLOTTING====================
+
+            # =========================PLOTTING====================
             ax[0,0].plot(x[index_a1:index_a2],y[index_a1:index_a2], color=(0.0,0.0,0.0), linewidth=0.7)
 
             # =========================COSMETICS of plotting ====================
@@ -267,4 +268,35 @@ class Libs_data:
             if show_plot == None or show_plot==True:
                 plt.show() 
 
+    def spectrum_peaks(self,show_plot=None):
+        x=self.xData
+        y=self.yData
+        name =self.title
+        size=self.no_of_points
+        #==========================finding peak============================
+        peaks, properties = find_peaks(y,height=600,distance=30,prominence=4, width=4)
+        print(peaks)
 
+        with plt.rc_context({'axes.edgecolor':((0.8, 0.8, 0.8))}):
+            #setting temporary/local rc parameters
+            fig, ax = plt.subplots(nrows=1, ncols=1, facecolor=(1, 1, 1))
+
+            # ==============================PLOTTING============================
+            ax.plot(x,y, color=(0.0,0.0,0.0), linewidth=0.4)
+            plt.plot(x[peaks], y[peaks], ".", color='#ff6400')
+
+            # =========================COSMETICS of plotting ====================
+            ax.set_facecolor((1, 1, 1))
+            ax.set_ylabel('Counts', color=(0.5, 0.5, 0.5))
+            ax.set_xlabel('Wavelength(nm)', color=(0.5, 0.5, 0.5))
+            ax.set_title("RAW DATA", color=(0.5, 0.5, 0.5))
+            ax.tick_params(direction='inout', length=6, width=1.5, colors=(0.5, 0.5, 0.5))
+            ax.set_xlim([x[0], x[-1]])
+            ax.set_ylim([-4000,40000])  # set the range here
+            ax.grid(color=(0.8, 0.8, 0.8), ls = '--', lw = 0.25)
+
+            # =========================SAVING PLOT ====================
+            plt.savefig('temp_raw.pdf', dpi=300, facecolor=(1, 1, 1), edgecolor=(1, 1, 1))
+            mergePDFtoMaster('temp_raw.pdf')
+            if show_plot == None or show_plot==True:
+                plt.show()
